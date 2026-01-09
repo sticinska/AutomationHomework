@@ -15,8 +15,9 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("org.seleniumhq.selenium:selenium-java:4.39.0")
     testImplementation("org.testng:testng:7.11.0")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useTestNG()
 }
