@@ -1,0 +1,14 @@
+{
+  "firstname": "John",
+  "lastname": "Doe",
+  "gender": "M",
+  "birthdate": "1990.01.01",
+  "email": "johhnytesting@automationhomework.lv",
+  "password": "ilovejohnny11",
+  "address": "Testing street 67",
+  "country": "India",
+  "state": "Bangladesh",
+  "city": "Bang",
+  "zipcode": "123123",
+  "phone": "22222222"
+}
