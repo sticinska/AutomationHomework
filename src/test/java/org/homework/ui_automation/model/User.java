@@ -1,13 +1,19 @@
 package org.homework.ui_automation.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     private String firstname;
     private String lastname;
     private String gender;
     private String email;
     private String password;
+    private String birthdate;
     private String country;
+    private String company;
     private String address;
+    private String address2;
     private String state;
     private String city;
     private String zipcode;
@@ -101,4 +107,30 @@ public class User {
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getAddress2() {
+        return address2;
+    }
+
+    public void setAddress2(String address2) {
+        this.address2 = address2;
+    }
+
 }
