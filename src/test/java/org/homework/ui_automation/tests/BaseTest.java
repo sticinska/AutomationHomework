@@ -2,10 +2,9 @@ package org.homework.ui_automation.tests;
 
 import org.homework.ui_automation.pages.BasePage;
 import org.homework.ui_automation.pages.LoginPage;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -18,9 +17,16 @@ public abstract class BaseTest {
 
     @BeforeClass
     public void setUp() {
-        driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-notifications");
+        options.addArguments("--disable-extensions");
+        options.addArguments("--disable-popup-blocking");
+        options.addArguments("--disable-ads");
+        options.addArguments("--disable-infobars");
+        driver = new ChromeDriver(options);
         driver.manage().window().maximize();
         driver.get(url);
+
         basePage = new BasePage();
         basePage.setDriver(driver);
         loginPage = new LoginPage();
@@ -30,6 +36,6 @@ public abstract class BaseTest {
 
     @AfterClass
     public void teardown() {
-        //driver.quit();
+       driver.quit();
     }
 }

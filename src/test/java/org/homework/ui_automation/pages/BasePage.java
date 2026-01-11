@@ -3,50 +3,85 @@ package org.homework.ui_automation.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
+import java.time.Duration;
 
 public class BasePage {
 
     public static WebDriver driver;
     private final By dataUsageConsentButton = By.xpath("//button[contains(@class,'fc-cta-consent')]");
+    private final By continueButton = By.xpath("//a[@data-qa='continue-button']");
+    private final By deletionSuccessMessage = By.xpath("//h2[@data-qa='account-deleted']");
+
 
     public void setDriver(WebDriver driver) {
         BasePage.driver = driver;
     }
 
-    protected WebElement find(By locator) {
-        return driver.findElement(locator);
-    }
-
-    protected List<WebElement> findMultiple(By locator) {
-        return driver.findElements(locator);
-    }
-
     protected void set(By locator, String text) {
-        find(locator).clear();
-        find(locator).sendKeys(text);
+        WebElement element = waitForVisible(locator);
+        element.clear();
+        element.sendKeys(text);
     }
 
     protected void click(By locator) {
-        find(locator).click();
+        waitForVisible(locator).click();
     }
 
     protected void selectByText(By locator, String text) {
-        Select select = new Select(find(locator));
+        Select select = new Select(waitForVisible(locator));
         select.selectByVisibleText(text);
     }
 
+    protected void selectByValue(By locator, String value) {
+        Select select = new Select(waitForVisible(locator));
+        select.selectByValue(value);
+    }
+
     protected void navigateToPage(String title) {
-        find(By.xpath("//a[contains(.,'" + title + "')]")).click();
+        click(By.xpath("//a[contains(.,'" + title + "')]"));
     }
 
 
-    public void confirmDataConsent(){
-        if (find(dataUsageConsentButton).isDisplayed()){
-            click(dataUsageConsentButton);
+    protected WebElement waitForVisible(By locator) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+
+    public void confirmDataConsent() {
+        if (!driver.findElements(dataUsageConsentButton).isEmpty()) {
+            driver.findElement(dataUsageConsentButton).click();
         }
     }
 
+    protected void assertVisible(By locator) {
+        waitForVisible(locator); // will throw if not visible
+    }
+
+    public void continueProcess() {
+        click(continueButton);
+    }
+
+    public void deleteAccount() {
+        navigateToPage("Delete Account");
+    }
+
+    public void navigateToLogin() {
+        navigateToPage("Login");
+    }
+
+    public void navigateToLogout() {
+        navigateToPage("Logout");
+    }
+
+    public void assertDeletionSuccess() {
+        assertVisible(deletionSuccessMessage);
+    }
+
+
 }
+
