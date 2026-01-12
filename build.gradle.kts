@@ -16,8 +16,27 @@ dependencies {
     implementation("org.seleniumhq.selenium:selenium-java:4.39.0")
     testImplementation("org.testng:testng:7.11.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
+    testImplementation("io.qameta.allure:allure-testng:2.21.0")
 }
 
 tasks.test {
     useTestNG()
+}
+
+tasks.register<Test>("signupAndLoginTests") {
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+
+    useTestNG {
+        includeGroups("signupAndLogin")
+    }
+}
+
+tasks.register<Test>("smokeTests") {
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+
+    useTestNG {
+        includeGroups("smoke")
+    }
 }
