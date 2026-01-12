@@ -17,6 +17,7 @@ dependencies {
     testImplementation("org.testng:testng:7.11.0")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
     testImplementation("io.qameta.allure:allure-testng:2.21.0")
+    testImplementation("io.rest-assured:rest-assured:6.0.0")
 }
 
 tasks.test {
@@ -40,3 +41,13 @@ tasks.register<Test>("smokeTests") {
         includeGroups("smoke")
     }
 }
+
+tasks.register<Test>("ApiTests") {
+    testClassesDirs = sourceSets.test.get().output.classesDirs
+    classpath = sourceSets.test.get().runtimeClasspath
+
+    useTestNG {
+        includeGroups("ApiTests")
+    }
+}
+

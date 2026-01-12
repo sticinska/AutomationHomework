@@ -1,0 +1,11 @@
+{
+  "name": "Orange T-shirt",
+  "price": "Rs. 800",
+  "brand": "Nike",
+  "category": {
+    "usertype": {
+      "usertype": "Women"
+    },
+    "category": "Tops"
+  }
+}
