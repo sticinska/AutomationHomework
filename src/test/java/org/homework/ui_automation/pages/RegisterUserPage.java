@@ -1,5 +1,6 @@
 package org.homework.ui_automation.pages;
 
+import io.qameta.allure.Step;
 import org.homework.ui_automation.model.User;
 import org.openqa.selenium.By;
 
@@ -102,6 +103,7 @@ public class RegisterUserPage extends BasePage {
         set(phoneNumberField, phoneNumber);
     }
 
+    @Step
     public void fillAllUserInfo(User user) {
         if (user.getGender() != null) setTitle(user.getGender());
         if (user.getFirstname() != null) setFirstName(user.getFirstname());
@@ -118,27 +120,32 @@ public class RegisterUserPage extends BasePage {
         if (user.getBirthdate() != null) setBirthdate(user.getBirthdate());
     }
 
+    @Step
     public void checkNewsletterCheckbox() {
         click(newsletterCheckbox);
     }
 
+    @Step
     public void checkSpecialOffersCheckbox() {
         click(specialOffersCheckbox);
     }
 
+    @Step
     public void submitRegistrationForm() {
-        click(submitButton);
+        scrollAndClick(submitButton);
     }
 
+    @Step
     public boolean registrationSuccessful() {
         return assertVisible(registrationSuccessMessage);
     }
 
-    public void confirmRegistration() {
+    @Step
+    public void clickContinueAfterRegistration() {
         continueProcess();
     }
 
-
+    @Step
     public boolean assertRegistrationFormVisible() {
         return assertVisible(registrationFormTitle);
     }

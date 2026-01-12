@@ -1,6 +1,8 @@
 package org.homework.ui_automation.pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -19,7 +21,6 @@ public class BasePage {
     private final By homepageTitle = By.xpath("//h1[contains(.,'Automation')]");
 
 
-
     public void setDriver(WebDriver driver) {
         BasePage.driver = driver;
     }
@@ -33,6 +34,17 @@ public class BasePage {
     protected void click(By locator) {
         waitForVisible(locator).click();
     }
+
+    protected void scrollAndClick(By locator) {
+        WebElement button = driver.findElement(locator);
+
+        ((JavascriptExecutor) driver).executeScript(
+                "arguments[0].scrollIntoView({block:'center'});", button
+        );
+
+        button.click();
+    }
+
 
     protected void selectByText(By locator, String text) {
         Select select = new Select(waitForVisible(locator));
@@ -55,6 +67,7 @@ public class BasePage {
     }
 
 
+    @Step
     public void confirmDataConsent() {
         if (!driver.findElements(dataUsageConsentButton).isEmpty()) {
             driver.findElement(dataUsageConsentButton).click();
@@ -74,7 +87,8 @@ public class BasePage {
         click(continueButton);
     }
 
-    public void confirmDeletion() {
+    @Step
+    public void clickContinueAfterDeletion() {
         continueProcess();
     }
 
@@ -82,22 +96,27 @@ public class BasePage {
         navigateToPage("Delete Account");
     }
 
+    @Step
     public void navigateToLogin() {
         navigateToPage("Login");
     }
 
+    @Step
     public void logout() {
         navigateToPage("Logout");
     }
 
+    @Step
     public boolean deletionSuccessful() {
         return assertVisible(deletionSuccessMessage);
     }
 
+    @Step
     public boolean userLoggedIn() {
         return assertVisible(loggedInTitle);
     }
 
+    @Step
     public boolean homePageVisible() {
         return assertVisible(homepageTitle);
     }
