@@ -1,5 +1,8 @@
 package org.homework.ui_automation.pages;
 
+import io.qameta.allure.Step;
+import org.homework.common.util.EmailGenerator;
+import org.homework.ui_automation.model.User;
 import org.openqa.selenium.By;
 
 public class LoginPage extends BasePage {
@@ -33,22 +36,33 @@ public class LoginPage extends BasePage {
         set(signupName, name);
     }
 
+    @Step
     public void clickLoginButton() {
         click(loginButton);
     }
 
-
+    @Step
     public RegisterUserPage clickSignupButton() {
         click(signupButton);
         return new RegisterUserPage();
     }
 
-    public RegisterUserPage signupNewUser(String email, String name) {
-        setSignupEmail(email);
-        setSignupName(name);
+    @Step
+    public RegisterUserPage signupUniqueUser(User user) {
+        user.setEmail(EmailGenerator.generateUniqueEmail());
+        setSignupEmail(user.getEmail());
+        setSignupName(user.getFirstname());
         return clickSignupButton();
     }
 
+    @Step
+    public RegisterUserPage signupUser(User user) {
+        setSignupEmail(user.getEmail());
+        setSignupName(user.getFirstname());
+        return clickSignupButton();
+    }
+
+    @Step
     public void login(String email, String password) {
         setLoginEmail(email);
         setLoginPassword(password);
@@ -56,10 +70,13 @@ public class LoginPage extends BasePage {
     }
 
 
+    @Step
     public boolean loginPageVisible() {
         return assertVisible(loginTitle);
     }
 
+
+    @Step
     public boolean assertErrorMessageVisible(String error) {
         return assertVisible(By.xpath("//p[contains(.,'" + error + "')]"));
     }

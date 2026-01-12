@@ -12,6 +12,7 @@ import static org.testng.Assert.assertTrue;
 
 public class RegistrationTests extends BaseTest {
     private static UserData users;
+    private static String generatedEmail;
 
     @BeforeClass(alwaysRun = true)
     public static void loadUsers() {
@@ -22,17 +23,22 @@ public class RegistrationTests extends BaseTest {
             testName = "TC1 Register and Delete new User")
     public void registerAndDeleteNewUser() {
         User user = users.getValidUser();
-        loginPage.homePageVisible();
+
+        assertTrue(loginPage.homePageVisible());
         loginPage.navigateToLogin();
-        var registrationPage = loginPage.signupNewUser(user.getEmail(), user.getFirstname());
+        var registrationPage = loginPage.signupUniqueUser(user);
+        generatedEmail = user.getEmail();
+
         assertTrue(registrationPage.assertRegistrationFormVisible());
         registrationPage.fillAllUserInfo(user);
         registrationPage.checkNewsletterCheckbox();
         registrationPage.checkSpecialOffersCheckbox();
         registrationPage.submitRegistrationForm();
         assertTrue(registrationPage.registrationSuccessful());
-        registrationPage.confirmRegistration();
+
+        registrationPage.clickContinueAfterRegistration();
         assertTrue(registrationPage.userLoggedIn());
+
         registrationPage.deleteAccount();
         assertTrue(registrationPage.deletionSuccessful());
     }
@@ -41,15 +47,20 @@ public class RegistrationTests extends BaseTest {
             testName = "Register User before TC2")
     public void registerNewUser() {
         User user = users.getValidUser();
+
         assertTrue(loginPage.homePageVisible(), "Home page should be visible");
         loginPage.navigateToLogin();
-        var registrationPage = loginPage.signupNewUser(user.getEmail(), user.getFirstname());
+        var registrationPage = loginPage.signupUniqueUser(user);
+        generatedEmail = user.getEmail();
+
         assertTrue(registrationPage.assertRegistrationFormVisible());
         registrationPage.fillAllUserInfo(user);
         registrationPage.submitRegistrationForm();
         assertTrue(registrationPage.registrationSuccessful());
-        registrationPage.confirmRegistration();
+
+        registrationPage.clickContinueAfterRegistration();
         registrationPage.userLoggedIn();
+
         registrationPage.logout();
         assertTrue(loginPage.loginPageVisible());
     }
@@ -60,12 +71,15 @@ public class RegistrationTests extends BaseTest {
             testName = "TC2 Login User with correct email and password")
     public void loginAndDeleteUser() {
         User user = users.getValidUser();
-        assertTrue(loginPage.homePageVisible(), "Home page should be visible");
+
+        assertTrue(loginPage.homePageVisible());
         loginPage.navigateToLogin();
         loginPage.login(user.getEmail(), user.getPassword());
+
         loginPage.deleteAccount();
         assertTrue(loginPage.deletionSuccessful());
-        loginPage.confirmDeletion();
+
+        loginPage.clickContinueAfterDeletion();
         loginPage.logout();
     }
 
@@ -97,8 +111,11 @@ public class RegistrationTests extends BaseTest {
         User user = users.getRegisteredUser();
         assertTrue(loginPage.homePageVisible());
         loginPage.navigateToLogin();
-        loginPage.signupNewUser(user.getEmail(), user.getFirstname());
+        loginPage.signupUser(user);
         assertTrue(loginPage.assertErrorMessageVisible(ErrorMessages.EMAIL_ALREADY_EXISTS));
     }
+
+    //TODO ADD CLEAN UP - DELETE EACH GENERATED EMAIL USER
+
 }
 
