@@ -1,16 +1,38 @@
 {
-  "firstname": "John",
-  "lastname": "Doe",
-  "gender": "M",
-  "birthdate": "1990.01.01",
-  "email": "johhnytesting@automationhomework.lv",
-  "password": "ilovejohnny11",
-  "company": "big bold testing company",
-  "address": "Testing street 67",
-  "address2": "Apartment 101",
-  "country": "India",
-  "state": "Bangladesh",
-  "city": "Bang",
-  "zipcode": "123123",
-  "phone": "22222222"
+  "valid_user": {
+    "firstname": "John",
+    "lastname": "Doe",
+    "gender": "M",
+    "birthdate": "1990.01.01",
+    "email": "j@homework.lv",
+    "password": "ilovejohnny11",
+    "company": "big bold testing company",
+    "address": "Testing street 67",
+    "address2": "Apartment 101",
+    "country": "India",
+    "state": "Bangladesh",
+    "city": "Bang",
+    "zipcode": "123123",
+    "phone": "22222222"
+  },
+  "registered_user": {
+    "firstname": "Jane",
+    "lastname": "Doe",
+    "gender": "F",
+    "birthdate": "1990.01.14",
+    "email": "jane@tomato.lv",
+    "password": "ilovejohnny45",
+    "company": "sahm",
+    "address": "Testing street 67",
+    "address2": "Apartment 101",
+    "country": "India",
+    "state": "Bangladesh",
+    "city": "Bang",
+    "zipcode": "123123",
+    "phone": "22222223"
+  },
+  "invalid_user": {
+    "email": "nonexistantuser@tomato.lv",
+    "password": "parole"
+  }
 }

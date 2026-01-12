@@ -1,20 +1,21 @@
 package org.homework.common.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.homework.ui_automation.model.User;
+import org.homework.ui_automation.model.UserData;
 
 import java.io.File;
 import java.io.IOException;
 
 public class TestDataLoader {
-    private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    //TODO: should be updated to be able to read a specific user from list of multiple json objects
-    public User loadUserFromFile(){
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final String PATH = "src/test/resources/userData.json";
+
+    public static UserData loadUserFromFile() {
         try {
-            return objectMapper.readValue(new File("src/test/resources/userData.json"), User.class);
+            return objectMapper.readValue(new File(PATH), UserData.class);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Failed to load user data from JSON", e);
         }
     }
 }
