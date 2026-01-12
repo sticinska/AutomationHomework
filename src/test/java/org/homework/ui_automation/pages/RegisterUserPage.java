@@ -28,7 +28,6 @@ public class RegisterUserPage extends BasePage {
 
 
     private final By submitButton = By.xpath("//button[@data-qa='create-account']");
-    private final By loggedInTitle = By.xpath("//a[contains(.,'Logged in as')]");
     private final By registrationFormTitle = By.xpath("//h2[contains(.,'Enter Account Information')]");
     private final By registrationSuccessMessage = By.xpath("//h2[@data-qa='account-created']");
 
@@ -140,10 +139,5 @@ public class RegisterUserPage extends BasePage {
     public void assertRegistrationFormVisible() {
         assertVisible(registrationFormTitle);
     }
-
-    public void assertUserLoggedIn() {
-        assertVisible(loggedInTitle);
-    }
-
 }
 

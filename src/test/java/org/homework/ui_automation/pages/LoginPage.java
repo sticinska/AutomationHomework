@@ -15,8 +15,7 @@ public class LoginPage extends BasePage {
 
 
     private final By homepageTitle = By.xpath("//h1[contains(.,'Automation')]");
-    private final By loginForm = By.className("login-form");
-
+    private final By loginTitle = By.xpath("//h2[contains(.,'Login to your account')]");
 
 
     public void setLoginEmail(String username) {
@@ -62,11 +61,10 @@ public class LoginPage extends BasePage {
     }
 
     public void assertLoginPageVisible() {
-        assertVisible(loginForm);
+        assertVisible(loginTitle);
     }
 
-
-
-
-
+    public void assertErrorMessageVisible(String error) {
+        assertVisible(By.xpath("//p[contains(.,'" + error + "')]"));
+    }
 }

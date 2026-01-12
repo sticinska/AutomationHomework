@@ -15,6 +15,8 @@ public class BasePage {
     private final By dataUsageConsentButton = By.xpath("//button[contains(@class,'fc-cta-consent')]");
     private final By continueButton = By.xpath("//a[@data-qa='continue-button']");
     private final By deletionSuccessMessage = By.xpath("//h2[@data-qa='account-deleted']");
+    private final By loggedInTitle = By.xpath("//a[contains(.,'Logged in as')]");
+
 
 
     public void setDriver(WebDriver driver) {
@@ -83,5 +85,8 @@ public class BasePage {
     }
 
 
+    public void assertUserLoggedIn() {
+        assertVisible(loggedInTitle);
+    }
 }
 
