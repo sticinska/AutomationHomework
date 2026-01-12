@@ -11,10 +11,10 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class ProductApiTest extends ProductsApi{
+public class ProductApiTest extends ProductsApi {
 
 
-    @BeforeClass (alwaysRun = true)
+    @BeforeClass(alwaysRun = true)
     public static void setup() {
         RestAssured.baseURI = Environment.EXERCISE_URL;
     }
@@ -22,14 +22,18 @@ public class ProductApiTest extends ProductsApi{
     @Test(groups = "ApiTests")
     public void getAllProductsList() {
         Response response = getProductList();
-        assertEquals(response.statusCode(), HttpStatus.OK.getCode());
+        assertEquals(response.statusCode(), HttpStatus.OK.getCode(),
+                "GET all ProductsList should return status code 200");
     }
 
     @Test(groups = "ApiTests")
     public void postToProductsList() {
         Response response = postToProductsList(TestDataLoader.loadProductFile());
-        HttpStatus status = getStatusFromResponseBody(response);    //getting the response status from body
-                                                                    // as the http request returns 200
-        assertEquals(status.getCode(), HttpStatus.NOT_SUPPORTED.getCode());    }
+        HttpStatus status = getStatusFromResponseBody(response);
+        //getting the response status from body
+        // as the http request returns 200
+        assertEquals(status.getCode(), HttpStatus.NOT_SUPPORTED.getCode(),
+                "POST on all ProductsList is not supported, so should return status code 405");
+    }
 
 }
