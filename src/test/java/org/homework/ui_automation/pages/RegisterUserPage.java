@@ -61,7 +61,6 @@ public class RegisterUserPage extends BasePage {
         String month = date[1];
         String day = date[2];
 
-        // convert to integers to handle leading zeros
         int dayInt = Integer.parseInt(day);
         int monthInt = Integer.parseInt(month);
 
@@ -131,13 +130,17 @@ public class RegisterUserPage extends BasePage {
         click(submitButton);
     }
 
-    public void assertRegistrationSuccess() {
-        assertVisible(registrationSuccessMessage);
+    public boolean registrationSuccessful() {
+        return assertVisible(registrationSuccessMessage);
+    }
+
+    public void confirmRegistration() {
+        continueProcess();
     }
 
 
-    public void assertRegistrationFormVisible() {
-        assertVisible(registrationFormTitle);
+    public boolean assertRegistrationFormVisible() {
+        return assertVisible(registrationFormTitle);
     }
 }
 

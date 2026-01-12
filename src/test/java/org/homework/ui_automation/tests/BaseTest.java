@@ -1,5 +1,6 @@
 package org.homework.ui_automation.tests;
 
+import org.homework.common.util.Environment;
 import org.homework.ui_automation.pages.BasePage;
 import org.homework.ui_automation.pages.LoginPage;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +13,6 @@ import java.io.File;
 
 public abstract class BaseTest {
     protected WebDriver driver;
-    private final String url = "https://www.automationexercise.com/";
     protected BasePage basePage;
     protected LoginPage loginPage;
 
@@ -22,7 +22,7 @@ public abstract class BaseTest {
         ChromeOptions options = new ChromeOptions();
         driver = new ChromeDriver(options);
         driver.manage().window().maximize();
-        driver.get(url);
+        driver.get(Environment.EXERCISE_URL);
 
         basePage = new BasePage();
         basePage.setDriver(driver);

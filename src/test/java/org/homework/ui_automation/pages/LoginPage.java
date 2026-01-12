@@ -14,7 +14,6 @@ public class LoginPage extends BasePage {
     private final By signupButton = By.xpath("//button[@data-qa='signup-button']");
 
 
-    private final By homepageTitle = By.xpath("//h1[contains(.,'Automation')]");
     private final By loginTitle = By.xpath("//h2[contains(.,'Login to your account')]");
 
 
@@ -56,15 +55,12 @@ public class LoginPage extends BasePage {
         clickLoginButton();
     }
 
-    public void assertHomePageVisible() {
-        assertVisible(homepageTitle);
+
+    public boolean loginPageVisible() {
+        return assertVisible(loginTitle);
     }
 
-    public void assertLoginPageVisible() {
-        assertVisible(loginTitle);
-    }
-
-    public void assertErrorMessageVisible(String error) {
-        assertVisible(By.xpath("//p[contains(.,'" + error + "')]"));
+    public boolean assertErrorMessageVisible(String error) {
+        return assertVisible(By.xpath("//p[contains(.,'" + error + "')]"));
     }
 }

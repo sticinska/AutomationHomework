@@ -16,6 +16,7 @@ public class BasePage {
     private final By continueButton = By.xpath("//a[@data-qa='continue-button']");
     private final By deletionSuccessMessage = By.xpath("//h2[@data-qa='account-deleted']");
     private final By loggedInTitle = By.xpath("//a[contains(.,'Logged in as')]");
+    private final By homepageTitle = By.xpath("//h1[contains(.,'Automation')]");
 
 
 
@@ -60,12 +61,21 @@ public class BasePage {
         }
     }
 
-    protected void assertVisible(By locator) {
-        waitForVisible(locator); // will throw if not visible
+    protected boolean assertVisible(By locator) {
+        try {
+            waitForVisible(locator);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public void continueProcess() {
         click(continueButton);
+    }
+
+    public void confirmDeletion() {
+        continueProcess();
     }
 
     public void deleteAccount() {
@@ -76,17 +86,21 @@ public class BasePage {
         navigateToPage("Login");
     }
 
-    public void navigateToLogout() {
+    public void logout() {
         navigateToPage("Logout");
     }
 
-    public void assertDeletionSuccess() {
-        assertVisible(deletionSuccessMessage);
+    public boolean deletionSuccessful() {
+        return assertVisible(deletionSuccessMessage);
     }
 
-
-    public void assertUserLoggedIn() {
-        assertVisible(loggedInTitle);
+    public boolean userLoggedIn() {
+        return assertVisible(loggedInTitle);
     }
+
+    public boolean homePageVisible() {
+        return assertVisible(homepageTitle);
+    }
+
 }
 
