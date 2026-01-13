@@ -4,35 +4,30 @@ import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
-import java.io.File;
 
-public class ProductsApi {
-
-    private static final String PRODUCTS_LIST_ENDPOINT = "/productsList";
+public class BrandsApi {
+    private final String BRANDS_LIST_ENDPOINT = "/brandsList";
 
 
-    public Response getProductList() {
+    public Response getBrandsList() {
         return RestAssured
                 .given()
                 .contentType(ContentType.JSON)
                 .when()
-                .get(PRODUCTS_LIST_ENDPOINT)
+                .get(BRANDS_LIST_ENDPOINT)
                 .then()
                 .extract()
                 .response();
     }
 
-    public Response postToProductsList(File requestBody) {
+    public Response putToBrandsList(String responseBody) {
         return RestAssured
                 .given()
-                .body(requestBody)
+                .body(responseBody)
                 .contentType(ContentType.JSON)
-                .when()
-                .post(PRODUCTS_LIST_ENDPOINT)
+                .put(BRANDS_LIST_ENDPOINT)
                 .then()
                 .extract()
                 .response();
     }
-
-
 }
