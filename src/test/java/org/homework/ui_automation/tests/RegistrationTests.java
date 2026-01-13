@@ -12,7 +12,6 @@ import static org.testng.Assert.assertTrue;
 
 public class RegistrationTests extends BaseTest {
     private static UserData users;
-    private static String generatedEmail;
 
     @BeforeClass(alwaysRun = true)
     public static void loadUsers() {
@@ -24,23 +23,22 @@ public class RegistrationTests extends BaseTest {
     public void registerAndDeleteNewUser() {
         User user = users.getValidUser();
 
-        assertTrue(loginPage.homePageVisible(), "Home page should be visible");
+        assertTrue(loginPage.isHomePageVisible(), "Home page should be visible");
         loginPage.navigateToLogin();
         var registrationPage = loginPage.signupUniqueUser(user);
-        generatedEmail = user.getEmail();
 
-        assertTrue(registrationPage.assertRegistrationFormVisible(),"Registration form should be visible");
+        assertTrue(registrationPage.isRegistrationFormVisible(),"Registration form should be visible");
         registrationPage.fillAllUserInfo(user);
         registrationPage.checkNewsletterCheckbox();
         registrationPage.checkSpecialOffersCheckbox();
         registrationPage.submitRegistrationForm();
-        assertTrue(registrationPage.registrationSuccessful(), "'Account Created' message visible");
+        assertTrue(registrationPage.isRegistrationSuccessful(), "'Account Created' message visible");
 
         registrationPage.clickContinueAfterRegistration();
-        assertTrue(registrationPage.userLoggedIn(), "User should be logged in");
+        assertTrue(registrationPage.isUserLoggedIn(), "User should be logged in");
 
         registrationPage.deleteAccount();
-        assertTrue(registrationPage.deletionSuccessful(), "'Account Deleted' message visible");
+        assertTrue(registrationPage.isDeletionSuccessful(), "'Account Deleted' message visible");
     }
 
 
@@ -51,7 +49,7 @@ public class RegistrationTests extends BaseTest {
         loginPage.login(user.getEmail(), user.getPassword());
 
         loginPage.deleteAccount();
-        assertTrue(loginPage.deletionSuccessful(), "'Account Deleted' message visible");
+        assertTrue(loginPage.isDeletionSuccessful(), "'Account Deleted' message visible");
 
         loginPage.clickContinueAfterDeletion();
     }
@@ -60,11 +58,11 @@ public class RegistrationTests extends BaseTest {
             testName = "TC3 Login User with incorrect email and password")
     public void loginWithIncorrectEmailAndPassword() {
         User user = users.getInvalidUser();
-        assertTrue(loginPage.homePageVisible(), "Home page should be visible");
+        assertTrue(loginPage.isHomePageVisible(), "Home page should be visible");
         loginPage.navigateToLogin();
-        assertTrue(loginPage.loginPageVisible(), "Login page should be visible");
+        assertTrue(loginPage.isLoginPageVisible(), "Login page should be visible");
         loginPage.login(user.getEmail(), user.getPassword().toUpperCase());
-        assertTrue(loginPage.assertErrorMessageVisible(ErrorMessages.INVALID_LOGIN),
+        assertTrue(loginPage.isErrorMessageVisible(ErrorMessages.INVALID_LOGIN),
                 "Error message \""+ ErrorMessages.INVALID_LOGIN + "\" should be visible");
     }
 
@@ -72,22 +70,22 @@ public class RegistrationTests extends BaseTest {
             testName = "TC4 Logout User")
     public void loginAndLogout() {
         User user = users.getRegisteredUser();
-        assertTrue(loginPage.homePageVisible(), "Home page should be visible");
+        assertTrue(loginPage.isHomePageVisible(), "Home page should be visible");
         loginPage.navigateToLogin();
         loginPage.login(user.getEmail(), user.getPassword());
-        assertTrue(loginPage.userLoggedIn(), "User should be logged in");
+        assertTrue(loginPage.isUserLoggedIn(), "User should be logged in");
         loginPage.logout();
-        assertTrue(loginPage.loginPageVisible(), "Login page should be visible");
+        assertTrue(loginPage.isLoginPageVisible(), "Login page should be visible");
     }
 
     @Test(groups = {"signupAndLogin"},
             testName = "TC5 Register User with existing email")
     public void registerWithExistingEmail() {
         User user = users.getRegisteredUser();
-        assertTrue(loginPage.homePageVisible(), "Home page should be visible");
+        assertTrue(loginPage.isHomePageVisible(), "Home page should be visible");
         loginPage.navigateToLogin();
         loginPage.signupUser(user);
-        assertTrue(loginPage.assertErrorMessageVisible(ErrorMessages.EMAIL_ALREADY_EXISTS),
+        assertTrue(loginPage.isErrorMessageVisible(ErrorMessages.EMAIL_ALREADY_EXISTS),
                 "Error message \""+ ErrorMessages.EMAIL_ALREADY_EXISTS + "\" should be visible");;
     }
 

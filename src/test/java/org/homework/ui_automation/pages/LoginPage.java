@@ -71,13 +71,13 @@ public class LoginPage extends BasePage {
 
 
     @Step
-    public boolean loginPageVisible() {
+    public boolean isLoginPageVisible() {
         return assertVisible(loginTitle);
     }
 
 
     @Step
-    public boolean assertErrorMessageVisible(String error) {
+    public boolean isErrorMessageVisible(String error) {
         return assertVisible(By.xpath("//p[contains(.,'" + error + "')]"));
     }
 }

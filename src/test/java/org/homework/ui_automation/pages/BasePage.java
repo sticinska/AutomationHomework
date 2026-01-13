@@ -107,17 +107,17 @@ public class BasePage {
     }
 
     @Step
-    public boolean deletionSuccessful() {
+    public boolean isDeletionSuccessful() {
         return assertVisible(deletionSuccessMessage);
     }
 
     @Step
-    public boolean userLoggedIn() {
+    public boolean isUserLoggedIn() {
         return assertVisible(loggedInTitle);
     }
 
     @Step
-    public boolean homePageVisible() {
+    public boolean isHomePageVisible() {
         return assertVisible(homepageTitle);
     }
 

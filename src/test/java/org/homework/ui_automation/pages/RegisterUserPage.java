@@ -136,7 +136,7 @@ public class RegisterUserPage extends BasePage {
     }
 
     @Step
-    public boolean registrationSuccessful() {
+    public boolean isRegistrationSuccessful() {
         return assertVisible(registrationSuccessMessage);
     }
 
@@ -146,7 +146,7 @@ public class RegisterUserPage extends BasePage {
     }
 
     @Step
-    public boolean assertRegistrationFormVisible() {
+    public boolean isRegistrationFormVisible() {
         return assertVisible(registrationFormTitle);
     }
 }
